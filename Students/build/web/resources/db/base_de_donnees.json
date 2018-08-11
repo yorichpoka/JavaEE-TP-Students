@@ -1,0 +1,224 @@
+{
+    "etudiants": [
+    {
+        "id": "1",
+        "code": "aaa",
+        "libelle": "aaa",
+        "mot_de_passe": "aaa",
+        "prenom": "aaa",
+        "email": "aaa@gmail.com",
+        "est_masculin": "true"
+    },
+    {
+        "id": "2",
+        "code": "bbb",
+        "libelle": "bbb",
+        "mot_de_passe": "bbb",
+        "prenom": "bbb",
+        "email": "bbb@gmail.com",
+        "est_masculin": "true"
+    },
+    {
+        "id": "3",
+        "code": "ccc",
+        "libelle": "ccc",
+        "mot_de_passe": "ccc",
+        "prenom": "ccc",
+        "email": "ccc@gmail.com",
+        "est_masculin": "true"
+    }],
+
+    "examens": [
+    {
+        "id": "1",
+        "code": "EX01",
+        "libelle": "Examen N°1",
+        "duree": "60"
+    },
+    {
+        "id": "2",
+        "code": "EX02",
+        "libelle": "Examen N°2",
+        "duree": "120"
+    },
+    {
+        "id": "3",
+        "code": "EX03",
+        "libelle": "Examen N°3",
+        "duree": "180"
+    }],
+
+    "questions": [
+    {
+        "id": "1",
+        "code": "01",
+        "libelle": "1 + 1 ?",
+        "id_examen": "1"
+    },
+    {
+        "id": "2",
+        "code": "02",
+        "libelle": "2 + 2 ?",
+        "id_examen": "1"
+    },
+    {
+        "id": "3",
+        "code": "03",
+        "libelle": "3 + 3 ?",
+        "id_examen": "2"
+    },
+    {
+        "id": "4",
+        "code": "04",
+        "libelle": "4 + 4 ?",
+        "id_examen": "2"
+    },
+    {
+        "id": "5",
+        "code": "05",
+        "libelle": "5 + 5 ?",
+        "id_examen": "3"
+    },
+    {
+        "id": "6",
+        "code": "06",
+        "libelle": "6 + 6 ?",
+        "id_examen": "3"
+    }],
+
+    "etudiant_question": [
+    {
+        "id": "1",
+        "code": "01",
+        "libelle": "",
+        "id_etudiant": "1",
+        "id_question": "1",
+        "id_choix_reponse": "1"
+    },
+    {
+        "id": "2",
+        "code": "02",
+        "libelle": "",
+        "id_etudiant": "1",
+        "id_question": "2",
+        "id_choix_reponse": "3"
+    },
+    {
+        "id": "3",
+        "code": "03",
+        "libelle": "",
+        "id_etudiant": "1",
+        "id_question": "3",
+        "id_choix_reponse": "5"
+    },
+    {
+        "id": "4",
+        "code": "04",
+        "libelle": "",
+        "id_etudiant": "2",
+        "id_question": "1",
+        "id_choix_reponse": "1"
+    },
+    {
+        "id": "5",
+        "code": "05",
+        "libelle": "",
+        "id_etudiant": "2",
+        "id_question": "2",
+        "id_choix_reponse": "3"
+    },
+    {
+        "id": "6",
+        "code": "06",
+        "libelle": "",
+        "id_etudiant": "2",
+        "id_question": "3",
+        "id_choix_reponse": "5"
+    }],
+
+    "choix_reponse": [
+    {
+        "id": "1",
+        "code": "01",
+        "libelle": "A",
+        "id_question": "1",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "2",
+        "code": "02",
+        "libelle": "B",
+        "id_question": "1",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "3",
+        "code": "03",
+        "libelle": "C",
+        "id_question": "2",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "4",
+        "code": "04",
+        "libelle": "D",
+        "id_question": "2",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "5",
+        "code": "05",
+        "libelle": "E",
+        "id_question": "3",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "6",
+        "code": "06",
+        "libelle": "F",
+        "id_question": "3",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "7",
+        "code": "07",
+        "libelle": "G",
+        "id_question": "1",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "8",
+        "code": "08",
+        "libelle": "H",
+        "id_question": "1",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "9",
+        "code": "09",
+        "libelle": "I",
+        "id_question": "1",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "10",
+        "code": "10",
+        "libelle": "J",
+        "id_question": "1",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "11",
+        "code": "11",
+        "libelle": "K",
+        "id_question": "1",
+        "bonne_reponse": "true"
+    },
+    {
+        "id": "12",
+        "code": "12",
+        "libelle": "L",
+        "id_question": "1",
+        "bonne_reponse": "true"
+    }]
+}

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    
+    <managed-bean>
+        <managed-bean-name>loginBean</managed-bean-name>
+        <managed-bean-class>Model.Bean.LoginBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>/authentification.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>questionAuthentification</from-outcome>
+            <to-view-id>/question.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>etudiantAuthentification</from-outcome>
+            <to-view-id>/etudiant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>etudiantBean</managed-bean-name>
+        <managed-bean-class>Model.Bean.EtudiantBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>con</property-name>
+            <value>#{loginBean.con}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>/etudiant.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>questionEtudiant</from-outcome>
+            <to-view-id>/question.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>authentificationEtudiant</from-outcome>
+            <to-view-id>authentification.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>questionBean</managed-bean-name>
+        <managed-bean-class>Model.Bean.QuestionBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>/question.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>etudiantQuestion</from-outcome>
+            <to-view-id>/etudiant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+</faces-config>

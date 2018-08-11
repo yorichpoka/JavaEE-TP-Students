@@ -1,0 +1,20 @@
+﻿
+.delay-001 {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+}
+
+.delay-025 {
+  -webkit-animation-duration: 0.25s;
+  animation-duration: 0.25s;
+}
+
+.delay-005 {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+}
+
+.delay-075 {
+  -webkit-animation-duration: 0.75s;
+  animation-duration: 0.75s;
+}

@@ -1,0 +1,129 @@
+﻿
+/* Importation des fichiers */
+@import url('../plugins/glyphicon/css/ds.glyphicon.style.css');
+@import url('../plugins/parsley/ds.parsley.css');
+@import url('../plugins/animate.css/ds.animate.css');
+
+/* Création d'une nouvelle police dans l'application' */
+@font-face{
+    font-family:'TitilliumWeb';
+    src: url(../fonts/TitilliumWeb-Regular.ttf);
+    font-weight:normal;
+    font-style:normal;
+}
+
+.body-authentification {
+    font-family: TitilliumWeb; 
+    font-weight:normal; 
+    font-style:normal;
+    background: url(../images/jpg/bg_grey.jpg);
+    /*
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    background-attachment:scroll;
+    min-height: 100%;
+    */
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+}
+
+.body-acceuil {
+    font-family: TitilliumWeb; 
+    font-weight:normal; 
+    font-style:normal;
+    /*background: url(../images/jpg/bg_grey.jpg);*/
+    /*
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    background-attachment:scroll;
+    min-height: 100%;
+    */
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+}
+
+footer {
+    /*background-color: #717070;*/ 
+    color: #FFFFFF; 
+    padding-top: 20px; 
+    padding-bottom: 20px;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  /*background-color: rgba(0,0,0,.05);*/
+}
+
+/* Cookie notification */
+.cookiewarning {
+    padding: 1em;
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: rgba(0,0,0,.8);
+    color: white;
+}
+
+/* Mise à jour Boostrap */
+.container {
+    margin-top: 50px;
+}
+
+.ds-bold {
+    font-weight: bold;
+}
+
+.ds-color {
+    color: #f95808;
+}
+
+.ds-bg-color {
+    background-color: #f95808;
+}
+
+.ds-border-color {
+    border-color: #f95808;
+}
+
+.ds-btn-hover:hover {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    color: #f95808;
+}
+
+.ds-btn-hover {
+    color: white;
+}
+
+.ds-table td {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ds-hide {
+    display: none;
+}
+
+.ds-justify {
+    text-align:justify;
+}
+
+/* Mise à jour de la taille du plugin telephone */
+.intl-tel-input.allow-dropdown {
+    height: 40px;
+}
+
+/* Augmenter la taille des icons */
+.ds-fa-10x {
+    font-size: 10em;
+}
