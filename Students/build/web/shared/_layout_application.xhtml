@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        
+        <!-- Meta data -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <!-- Titre de la page -->
+        <title>#{loginBean.titre_de_la_page}</title>
+        
+        <!-- icon de la page -->
+        <link href="resources/images/ico/favicon.ico" rel="shortcut icon" type="image/ico" />
+          
+        <!-- Style à appliquer sur la page -->
+        <!-- FontAwesome -->
+        <link href="resources/plugins/FontAwesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- Boostrap -->
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- iCheck -->
+        <link href="resources/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+        <!-- animate -->
+        <link href="resources/plugins/animate.css/animate.css" rel="stylesheet" type="text/css" />
+        <!-- Application -->
+        <link href="resources/css/app.style.css" rel="stylesheet" type="text/css" />
+        
+    </h:head>
+
+    <h:body class="body-acceuil">
+        
+        <div class="container">
+            
+            <ui:include src="_header.xhtml"/>
+            
+            <div class="pb-5"></div>
+        
+            <ui:insert name="body"></ui:insert>
+            
+
+        </div>
+        
+        <ui:include src="_footer.xhtml"/>
+        
+    </h:body>
+
+</html>

@@ -32,6 +32,10 @@ public class Etudiant extends Utilisateur implements Serializable {
         
     }
 
+    public String sexe() {
+        return this.est_masculin ? "Masculin" : "Feminin";
+    }
+    
     public String getPrenom() {
         return prenom;
     }

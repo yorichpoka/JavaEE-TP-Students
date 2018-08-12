@@ -5,6 +5,7 @@
  */
 package Model.Bean;
 
+import Model.BO.Utilisateur;
 import java.sql.Connection;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -14,6 +15,7 @@ import javax.faces.context.FacesContext;
 public abstract class Bean {
     
     protected Connection con;
+    protected Utilisateur utilisateur;
 
     public Connection getCon() {
         return con;
@@ -21,6 +23,14 @@ public abstract class Bean {
 
     public void setCon(Connection con) {
         this.con = con;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
     
     @PostConstruct

@@ -1,54 +1,26 @@
 <ui:composition xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-                   
     
- 
-    
-    <div class="col-12">
-        <p:graphicImage value="resources/images/png/Logo-isib.png" height="40px"/>   
+    <div class="animated fadeInDown delay-006">
+        
+        <h:form>   
+
+            <p:toolbar>
+
+                <f:facet name="left">
+                    <i class="fa fa-user"></i> #{loginBean.utilisateur.libelle}
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton value="Se déconnecter" action="#{loginBean.deconnexion}" icon="ui-icon-extlink" />
+                </f:facet>
+
+            </p:toolbar>
+
+        </h:form>
+        
     </div>
-    
-    <div class="pt-3"></div>
-    
-    
-    
-    <div class="col-12">
-        <div class="card bg-light">
-            
-                <div class="card-body" style="padding: 5px;">
-                    <div class="pull-left">
-                    <!--                        
-                        <p:graphicImage value="resources/images/png/Logo-isib.png" height="30px"/>
-                    -->
-                    <span class="ds-bold">
-                        #{menuBean.viewmodel.titre}
-                    </span>
-                </div>
-                    <div class="pull-right">
-                        <h:form>
-                            <span class="ds-bold">
-                                #{loginBean.utilisateur.nom}
-                            </span>
-                            <p:commandButton 
-                                value="Se deconnecter"
-                                actionListener="#{loginBean.deconnexion()}"
-                                styleClass="ui-priority-primary" />                            
-                                <!--                            
-                                <p:splitButton value="Ulrich POKA">
-                                <p:menuitem value="Profil" />
-                                <p:separator />
-                                <p:menuitem value="Deconnexion" />
-                                </p:splitButton>
-                                -->                               
-                                
-                        </h:form>
-                    </div>
-                </div>
-            
-        </div>  
-    </div>
-    
-    <div class="pb-3"></div>
     
 </ui:composition>

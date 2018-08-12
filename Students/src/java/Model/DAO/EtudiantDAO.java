@@ -142,6 +142,46 @@ public class EtudiantDAO implements DAO<Etudiant>{
         
         return Liste;
     }
+    
+    public ArrayList<Etudiant> Lister(String champ, String valeur) {
+        ArrayList Liste = new ArrayList();
+        
+        try {
+            
+            MysqlConnect mysql_connect = new MysqlConnect();            
+            
+            // -- COnnecter -- //
+            PreparedStatement prep = mysql_connect.connect().prepareStatement(
+                                        "SELECT * FROM " + table + " WHERE " + champ + "=" + STClass.stringParameter(valeur)
+                                    );
+            
+            ResultSet resultats = prep.executeQuery();
+            
+            while (resultats.next()) {
+                
+                Etudiant obj = new Etudiant();
+                
+                obj.setId(resultats.getInt("id"));
+                obj.setCode(resultats.getString("code"));
+                obj.setLibelle(resultats.getString("libelle"));
+                obj.setMotdepasse(resultats.getString("mot_de_passe"));
+                obj.setPrenom(resultats.getString("prenom"));
+                obj.setEmail(resultats.getString("email"));
+                obj.setEst_masculin(resultats.getBoolean("est_masculin"));
+                
+                Liste.add(obj);
+                
+            }
+            
+            // -- Déconnecter -- //
+            mysql_connect.disconnect();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Liste;
+    }
 
     @Override
     public Etudiant Objet(long id) {

@@ -7,17 +7,19 @@ package Model.Bean;
 
 import Model.BO.*;
 import Model.DAO.*;
+import Model.Static.STClass;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.TabChangeEvent;
 
 
 public class LoginBean extends Bean implements Serializable {
     
-    private String compte, mot_de_passe;
+    private String titre_de_la_page, id_page;
     
     /**
      * Creates a new instance of LoginBean
@@ -30,109 +32,100 @@ public class LoginBean extends Bean implements Serializable {
     public void initialisation() {
         
         try {
-            
+            // -- Définition du titre de la page -- //
+            this.titre_de_la_page = "Page d'authentification";
+            // -- Initialiser l'utilisateur en session -- //
+            this.utilisateur = new Utilisateur();
         } catch (Exception ex) { }
         
     }
 
-    public String getCompte() {
-        return compte;
+    public String getTitre_de_la_page() {
+        return titre_de_la_page;
     }
 
-    public void setCompte(String compte) {
-        this.compte = compte;
+    public void setTitre_de_la_page(String titre_de_la_page) {
+        this.titre_de_la_page = titre_de_la_page;
     }
 
-    public String getMot_de_passe() {
-        return mot_de_passe;
+    public String getId_page() {
+        return id_page;
     }
 
-    public void setMot_de_passe(String mot_de_passe) {
-        this.mot_de_passe = mot_de_passe;
+    public void setId_page(String id_page) {
+        this.id_page = id_page;
     }
     
-//    public void authentification() {
-//        
-//        // -- Définition de la clé de page -- //
-//        String cle_page = "";
-//        // -- Réccupération du context -- //
-//        FacesContext context = FacesContext.getCurrentInstance();
-//
-//        try {
-//                    
-//            Etudiant etudiant = new EtudiantDAO().Objet(compte, mot_de_passe);
-//            
-//            // -- Vérifier l'authentification de l'utilisateur -- //
-//            if (etudiant == null) {
-//                // -- Notifier l'echec de l'authentification -- //
-//                context.addMessage(null, new FacesMessage("Echec", "Authentification refusée!"));
-//            } 
-//            else {
-//                // Définition de la clé de la page à rediriger -- //
-//                cle_page = "acceuil";
-//                // -- Réccupération de la session -- //
-//                HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-//                //session.setAttribute("client", c);
-//                session.setAttribute("utilisateur", (Utilisateur)etudiant);
-//                // -- Definition du titre de la page dans la session -- //
-//                context.getExternalContext().getSessionMap().put("titre", "Acceuil");
-//                // -- Redirection vers la page d'application -- //
-//                context.getExternalContext().redirect("etudiant.xhtml");
-//            }
-//
-//            // -- Définition du rendu de la réponse -- //
-//            context.renderResponse();
-//            
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//
-//        //return cle_page;
-//    }
-    
-    public void authentification() {
+    public String authentification() {
         
-//        String cle = "";
+        try {
+            // -- Vérifier que le paramètres sont soumis -- //
+            if (STClass.isNullOrEmpty(this.utilisateur.getCode())){
+                throw new Exception("Le compte est requis.");
+            }
+            else if (STClass.isNullOrEmpty(this.utilisateur.getMotdepasse())){
+                throw new Exception("Le mot de passe est requis.");
+            }
+            
+            // -- Réccupérer l'étudiant authentifier -- //
+            this.utilisateur = new EtudiantDAO().Objet(this.utilisateur.getCode(), this.utilisateur.getMotdepasse());
+            
+            // -- Vérifier l'authentification de l'utilisateur -- //
+            if (this.utilisateur != null) {
+                // -- COntext de la requete -- //
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                // -- Réccupération de l'objet session -- //
+                HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+                // -- Mise à jour de l'utilisateur dans la session -- //
+                session.setAttribute("utilisateur", this.utilisateur);
+                // -- Définition du titre de la page -- //
+                this.titre_de_la_page = "Page d'acceuil";
+                // -- Renvoyer la clé de la requête -- //
+                return "authentificationVersAcceuil";
+            }
+            else 
+            {
+                // -- Affichier le message d'erreur -- //
+                afficherMessage("Compte ou mot de passe incorrect", null);
+                // -- Vider les champs -- //
+                this.utilisateur = new Etudiant();
+                // -- Annuler la redirection -- //
+                return "";
+            }            
+        }
+        catch(Exception ex){
+            // -- Affichier le message d'erreur -- //
+            afficherMessage(ex.getMessage(), null);
+        }
         
-        afficherMessage("Message", "Description");
+        // -- Vider les champs -- //
+        this.utilisateur = new Etudiant();
+        // -- Annuler la redirection -- //
+        return "";
         
-//        try {
-//            
-//            Etudiant etudiant = new EtudiantDAO().Objet(compte, mot_de_passe);
-//            
-//            // -- Vérifier l'authentification de l'utilisateur -- //
-//            if (etudiant != null) {
-//            
-//                FacesContext facesContext = FacesContext.getCurrentInstance();
-//                HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-//                session.setAttribute("client", (Utilisateur)etudiant);
-//            
-//                cle = "authentificationEtudiant";
-//            }
-//            else 
-//            {
-//                FacesContext fc = FacesContext.getCurrentInstance();
-//            
-//                FacesMessage fm = new FacesMessage();
-//            
-//                fm.setSeverity(FacesMessage.SEVERITY_ERROR);
-//                fm.setSummary("Mauvais email et/ou password");
-//                fm.setDetail("Encoder une valeur correcte pour l'E-mail et/ou Password");
-//            
-//                fc.addMessage("form:valider", fm);
-//            
-//                fc.renderResponse();
-//            }
-//
-//            return cle;
-//            
-//        }
-//        catch(Exception ex){
-//            ex.printStackTrace();
-//        }
-        
-//        return cle;
     }
     
-
+    public String deconnexion() {
+        
+        try {
+            // -- Vider tous les paramètre du bean -- //
+            this.utilisateur = new Etudiant();
+            this.titre_de_la_page = null;
+            // -- Renvoyer la clé de la requête -- //
+            return "acceuilVersAuthentification";           
+        }
+        catch(Exception ex){
+            // -- Affichier le message d'erreur -- //
+            afficherMessage(ex.getMessage(), null);
+        }
+        
+        // -- Annuler la redirection -- //
+        return "";
+        
+    }
+    
+    public void onTabChange(TabChangeEvent event) {
+        // -- Affichier le message d'erreur -- //
+        afficherMessage("Active Tab: " + event.getTab().getTitle(), null);
+    }
 }

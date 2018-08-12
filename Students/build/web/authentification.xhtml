@@ -51,7 +51,7 @@
                                             </span>
                                         </div>
                                         <p:inputText styleClass="form-control" placeholder="Identifiant..." 
-                                                     value="#{loginBean.compte}"/>
+                                                     value="#{loginBean.utilisateur.code}"/>
                                     </div>
                                 </div>
                                 
@@ -64,34 +64,19 @@
                                             </span>
                                         </div>
                                         <p:password styleClass="form-control" placeholder="Mot de passe..." 
-                                                    value="#{loginBean.mot_de_passe}" />
+                                                    value="#{loginBean.utilisateur.motdepasse}" />
                                     </div>
                                 </div>
-
-                                <!--
-                                <div>
-                                    <label>
-                                        <input name="remember" id="remember" type="checkbox" class="flat-red" /> Se souvenir de moi
-                                    </label>
-                                </div>
-                                -->
                                 
                                 <div class="pt-3"></div>
                                 
                                 <div align="center">
                                     <p:commandButton 
-                                        id="btn_connexcion"
                                         update="growl"
                                         value="Se connecter"
-                                        actionListener="#{loginBean.authentification}"
+                                        action="#{loginBean.authentification}"
                                         icon="ui-icon-extlink"
                                     />
-                                    <!--
-                                    <p:dialog id="msgDialog" widgetVar="messageDialog" modal="true" visible="#{facesContext.validationFailed}" resizable="false">
-                                        <p:messages id="messagesInDialog" />
-                                        <p:commandButton value="OK" onclick="PF('messageDialog').hide()" />
-                                    </p:dialog>
-                                    -->
                                 </div>
                                 
                             </fieldset>

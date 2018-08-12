@@ -5,7 +5,6 @@
  */
 package Model.Static;
 
-import Model.BO.Question;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -67,6 +66,10 @@ public class STClass<T> {
         return 
             "'" + ((value != null) ? value.toString() : "") + "'";
         
+    }
+    
+    public static boolean isNullOrEmpty(String value){
+        return value.equals(null) || value.equals("");
     }
     
 }

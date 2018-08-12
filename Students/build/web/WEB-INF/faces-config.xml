@@ -11,15 +11,11 @@
     </managed-bean>
     
     <navigation-rule>
+        <display-name>authentification</display-name>
         <from-view-id>/authentification.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>questionAuthentification</from-outcome>
-            <to-view-id>/question.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>etudiantAuthentification</from-outcome>
-            <to-view-id>/etudiant.xhtml</to-view-id>
+            <from-outcome>authentificationVersAcceuil</from-outcome>
+            <to-view-id>acceuil.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -32,18 +28,43 @@
             <property-name>con</property-name>
             <value>#{loginBean.con}</value>
         </managed-property>
+        <managed-property>
+            <property-name>utilisateur</property-name>
+            <value>#{loginBean.utilisateur}</value>
+        </managed-property>
     </managed-bean>
     
     <navigation-rule>
+        <display-name>etudiant</display-name>
         <from-view-id>/etudiant.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>questionEtudiant</from-outcome>
-            <to-view-id>/question.xhtml</to-view-id>
+            <from-outcome>etudiantVersAcceuil</from-outcome>
+            <to-view-id>acceuil.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>authentificationEtudiant</from-outcome>
+            <from-outcome>etudiantVersAuthentification</from-outcome>
             <to-view-id>authentification.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>etudiantVersEtudiant</from-outcome>
+            <to-view-id>etudiant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>etudiantVersExamen</from-outcome>
+            <to-view-id>examen.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>etudiantVersQuestionnaire</from-outcome>
+            <to-view-id>questionnaire.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>etudiantVersEvaluation</from-outcome>
+            <to-view-id>evaluation.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -52,13 +73,157 @@
         <managed-bean-name>questionBean</managed-bean-name>
         <managed-bean-class>Model.Bean.QuestionBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>con</property-name>
+            <value>#{loginBean.con}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>utilisateur</property-name>
+            <value>#{loginBean.utilisateur}</value>
+        </managed-property>
     </managed-bean>
     
     <navigation-rule>
-        <from-view-id>/question.xhtml</from-view-id>
+        <display-name>questionnaire</display-name>
+        <from-view-id>/questionnaire.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>etudiantQuestion</from-outcome>
-            <to-view-id>/etudiant.xhtml</to-view-id>
+            <from-outcome>questionnaireVersAcceuil</from-outcome>
+            <to-view-id>acceuil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>questionnaireVersAuthentification</from-outcome>
+            <to-view-id>authentification.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>questionnaireVersEtudiant</from-outcome>
+            <to-view-id>etudiant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>questionnaireVersExamen</from-outcome>
+            <to-view-id>examen.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>questionnaireVersQuestionnaire</from-outcome>
+            <to-view-id>questionnaireVersAcceuilnaire.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>questionnaireVersEvaluation</from-outcome>
+            <to-view-id>evaluation.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>acceuilBean</managed-bean-name>
+        <managed-bean-class>Model.Bean.AcceuilBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>con</property-name>
+            <value>#{loginBean.con}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>utilisateur</property-name>
+            <value>#{loginBean.utilisateur}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <navigation-rule>
+        <display-name>acceuil</display-name>
+        <from-view-id>/acceuil.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>acceuilVersAuthentification</from-outcome>
+            <to-view-id>authentification.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>acceuilVersEtudiant</from-outcome>
+            <to-view-id>etudiant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>acceuilVersExamen</from-outcome>
+            <to-view-id>examen.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>acceuilVersQuestionnaire</from-outcome>
+            <to-view-id>questionnaire.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>acceuilVersEvaluation</from-outcome>
+            <to-view-id>evaluation.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>examenBean</managed-bean-name>
+        <managed-bean-class>Model.Bean.ExamenBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+        <display-name>examen</display-name>
+        <from-view-id>/examen.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>examenVersAcceuil</from-outcome>
+            <to-view-id>acceuil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>examenVersAuthentification</from-outcome>
+            <to-view-id>authentification.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>examenVersEtudiant</from-outcome>
+            <to-view-id>etudiant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>examenVersQuestionnaire</from-outcome>
+            <to-view-id>questionnaire.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>examenVersEvaluation</from-outcome>
+            <to-view-id>evaluation.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <display-name>evaluation</display-name>
+        <from-view-id>/evaluation.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>evaluationVersAcceuil</from-outcome>
+            <to-view-id>acceuil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>evaluationVersAuthentification</from-outcome>
+            <to-view-id>authentification.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>evaluationVersEtudiant</from-outcome>
+            <to-view-id>etudiant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>evaluationVersQuestionnaire</from-outcome>
+            <to-view-id>questionnaire.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>evaluationVersExamen</from-outcome>
+            <to-view-id>examen.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
