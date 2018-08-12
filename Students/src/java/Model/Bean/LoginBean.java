@@ -19,8 +19,6 @@ import org.primefaces.event.TabChangeEvent;
 
 public class LoginBean extends Bean implements Serializable {
     
-    private String titre_de_la_page, id_page;
-    
     /**
      * Creates a new instance of LoginBean
      */
@@ -32,28 +30,10 @@ public class LoginBean extends Bean implements Serializable {
     public void initialisation() {
         
         try {
-            // -- Définition du titre de la page -- //
-            this.titre_de_la_page = "Page d'authentification";
             // -- Initialiser l'utilisateur en session -- //
             this.utilisateur = new Utilisateur();
         } catch (Exception ex) { }
         
-    }
-
-    public String getTitre_de_la_page() {
-        return titre_de_la_page;
-    }
-
-    public void setTitre_de_la_page(String titre_de_la_page) {
-        this.titre_de_la_page = titre_de_la_page;
-    }
-
-    public String getId_page() {
-        return id_page;
-    }
-
-    public void setId_page(String id_page) {
-        this.id_page = id_page;
     }
     
     public String authentification() {
@@ -63,12 +43,12 @@ public class LoginBean extends Bean implements Serializable {
             if (STClass.isNullOrEmpty(this.utilisateur.getCode())){
                 throw new Exception("Le compte est requis.");
             }
-            else if (STClass.isNullOrEmpty(this.utilisateur.getMotdepasse())){
+            else if (STClass.isNullOrEmpty(this.utilisateur.getMot_de_passe())){
                 throw new Exception("Le mot de passe est requis.");
             }
             
             // -- Réccupérer l'étudiant authentifier -- //
-            this.utilisateur = new EtudiantDAO().Objet(this.utilisateur.getCode(), this.utilisateur.getMotdepasse());
+            this.utilisateur = new EtudiantDAO().Objet(this.utilisateur.getCode(), this.utilisateur.getMot_de_passe());
             
             // -- Vérifier l'authentification de l'utilisateur -- //
             if (this.utilisateur != null) {
@@ -78,8 +58,6 @@ public class LoginBean extends Bean implements Serializable {
                 HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
                 // -- Mise à jour de l'utilisateur dans la session -- //
                 session.setAttribute("utilisateur", this.utilisateur);
-                // -- Définition du titre de la page -- //
-                this.titre_de_la_page = "Page d'acceuil";
                 // -- Renvoyer la clé de la requête -- //
                 return "authentificationVersAcceuil";
             }
@@ -105,27 +83,20 @@ public class LoginBean extends Bean implements Serializable {
         
     }
     
-    public String deconnexion() {
+    public void deconnexion() {
         
         try {
+            // -- Réccupération du context -- //
+            FacesContext context = FacesContext.getCurrentInstance();
             // -- Vider tous les paramètre du bean -- //
             this.utilisateur = new Etudiant();
-            this.titre_de_la_page = null;
-            // -- Renvoyer la clé de la requête -- //
-            return "acceuilVersAuthentification";           
+            // -- Redirection vers la page d'application -- //
+            context.getExternalContext().redirect("authentification.xhtml");
         }
         catch(Exception ex){
             // -- Affichier le message d'erreur -- //
             afficherMessage(ex.getMessage(), null);
         }
         
-        // -- Annuler la redirection -- //
-        return "";
-        
-    }
-    
-    public void onTabChange(TabChangeEvent event) {
-        // -- Affichier le message d'erreur -- //
-        afficherMessage("Active Tab: " + event.getTab().getTitle(), null);
     }
 }

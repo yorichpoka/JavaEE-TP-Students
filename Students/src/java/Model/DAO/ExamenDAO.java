@@ -8,7 +8,6 @@ package Model.DAO;
 import Model.BO.Examen;
 import Model.Static.STClass;
 import Model.Test.MysqlConnect;
-import Model.Test.Program;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,6 +19,9 @@ import java.util.ArrayList;
 public class ExamenDAO implements DAO<Examen>{
 
     private String table = "examens";
+
+    public ExamenDAO() {
+    }
     
     @Override
     public void Ajouter(Examen obj) {
@@ -119,6 +121,8 @@ public class ExamenDAO implements DAO<Examen>{
                 obj.setCode(resultats.getString("code"));
                 obj.setLibelle(resultats.getString("libelle"));
                 obj.setDuree(resultats.getInt("duree"));
+                // -- Ajouter la liste des questions en reference -- //
+                obj.setQuestions(new QuestionDAO().Lister(obj.getId()));
                 
                 Liste.add(obj);
                 
@@ -157,6 +161,8 @@ public class ExamenDAO implements DAO<Examen>{
                 obj.setCode(resultats.getString("code"));
                 obj.setLibelle(resultats.getString("libelle"));
                 obj.setDuree(resultats.getInt("duree"));
+                // -- Ajouter la liste des questions en reference -- //
+                obj.setQuestions(new QuestionDAO().Lister(obj.getId()));
                 
                 Liste.add(obj);
                 
@@ -170,8 +176,5 @@ public class ExamenDAO implements DAO<Examen>{
         }
         
         return (Liste.size() != 0) ? (Examen)Liste.get(0) : null;
-    }
-
-   
-    
+    }    
 }

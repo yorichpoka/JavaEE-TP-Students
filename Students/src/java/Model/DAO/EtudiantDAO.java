@@ -8,7 +8,6 @@ package Model.DAO;
 import Model.BO.Etudiant;
 import Model.Static.STClass;
 import Model.Test.MysqlConnect;
-import Model.Test.Program;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class EtudiantDAO implements DAO<Etudiant>{
                                         "values (" +
                                             STClass.stringParameter(obj.getCode()) + "," + 
                                             STClass.stringParameter(obj.getLibelle()) + "," + 
-                                            STClass.stringParameter(obj.getMotdepasse()) + "," + 
+                                            STClass.stringParameter(obj.getMot_de_passe()) + "," + 
                                             STClass.stringParameter(obj.getPrenom()) + "," + 
                                             STClass.stringParameter(obj.getEmail()) + "," + 
                                             (obj.getEst_masculin()? 1 : 0) + 
@@ -63,7 +62,7 @@ public class EtudiantDAO implements DAO<Etudiant>{
                                         "SET " +
                                             "code=" + STClass.stringParameter(obj.getCode()) + "," + 
                                             "libelle=" + STClass.stringParameter(obj.getLibelle()) + "," + 
-                                            "mot_de_passe=" + STClass.stringParameter(obj.getMotdepasse()) + "," + 
+                                            "mot_de_passe=" + STClass.stringParameter(obj.getMot_de_passe()) + "," + 
                                             "prenom=" + STClass.stringParameter(obj.getPrenom()) + "," + 
                                             "email=" + STClass.stringParameter(obj.getEmail()) + "," + 
                                             "est_masculin=" + (obj.getEst_masculin() ? 1 : 0) + 
@@ -124,7 +123,7 @@ public class EtudiantDAO implements DAO<Etudiant>{
                 obj.setId(resultats.getInt("id"));
                 obj.setCode(resultats.getString("code"));
                 obj.setLibelle(resultats.getString("libelle"));
-                obj.setMotdepasse(resultats.getString("mot_de_passe"));
+                obj.setMot_de_passe(resultats.getString("mot_de_passe"));
                 obj.setPrenom(resultats.getString("prenom"));
                 obj.setEmail(resultats.getString("email"));
                 obj.setEst_masculin(resultats.getBoolean("est_masculin"));
@@ -164,7 +163,7 @@ public class EtudiantDAO implements DAO<Etudiant>{
                 obj.setId(resultats.getInt("id"));
                 obj.setCode(resultats.getString("code"));
                 obj.setLibelle(resultats.getString("libelle"));
-                obj.setMotdepasse(resultats.getString("mot_de_passe"));
+                obj.setMot_de_passe(resultats.getString("mot_de_passe"));
                 obj.setPrenom(resultats.getString("prenom"));
                 obj.setEmail(resultats.getString("email"));
                 obj.setEst_masculin(resultats.getBoolean("est_masculin"));
@@ -205,7 +204,7 @@ public class EtudiantDAO implements DAO<Etudiant>{
                 obj.setId(resultats.getInt("id"));
                 obj.setCode(resultats.getString("code"));
                 obj.setLibelle(resultats.getString("libelle"));
-                obj.setMotdepasse(resultats.getString("mot_de_passe"));
+                obj.setMot_de_passe(resultats.getString("mot_de_passe"));
                 obj.setPrenom(resultats.getString("prenom"));
                 obj.setEmail(resultats.getString("email"));
                 obj.setEst_masculin(resultats.getBoolean("est_masculin"));
@@ -247,7 +246,7 @@ public class EtudiantDAO implements DAO<Etudiant>{
                 obj.setId(resultats.getInt("id"));
                 obj.setCode(resultats.getString("code"));
                 obj.setLibelle(resultats.getString("libelle"));
-                obj.setMotdepasse(resultats.getString("mot_de_passe"));
+                obj.setMot_de_passe(resultats.getString("mot_de_passe"));
                 obj.setPrenom(resultats.getString("prenom"));
                 obj.setEmail(resultats.getString("email"));
                 obj.setEst_masculin(resultats.getBoolean("est_masculin"));

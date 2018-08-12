@@ -8,7 +8,6 @@ package Model.DAO;
 import Model.BO.*;
 import Model.Static.STClass;
 import Model.Test.MysqlConnect;
-import Model.Test.Program;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -176,39 +175,39 @@ public class Etudiant_QuestionDAO implements DAO<Etudiant_Question>{
         return (Liste.size() != 0) ? (Etudiant_Question)Liste.get(0) : null;
     }
 
-    public double Score(long id_etudiant, long id_examen) {
-        try {
-            
-            QuestionDAO questionDAO = new QuestionDAO();
-            int repondu = 0;
-            int reussi = 0;
-            int echec = 0;
-            
-            for(Etudiant_Question val : Program.db.etudiant_question)
-            {
-                Question question = questionDAO.Objet(val.id_question);
-                
-                if (val.getId_etudiant() == id_etudiant && question.id_examen == id_examen)
-                {
-                    repondu++;
-                    if (question.bonneReponse().equals(val.choix_reponse))
-                    {
-                        reussi++;
-                    }
-                    else
-                    {
-                        echec++;
-                    }
-                }
-            }
-            
-            return reussi;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return 0;
-    }
+//    public double Score(long id_etudiant, long id_examen) {
+//        try {
+//            
+//            QuestionDAO questionDAO = new QuestionDAO();
+//            int repondu = 0;
+//            int reussi = 0;
+//            int echec = 0;
+//            
+//            for(Etudiant_Question val : Program.db.etudiant_question)
+//            {
+//                Question question = questionDAO.Objet(val.id_question);
+//                
+//                if (val.getId_etudiant() == id_etudiant && question.id_examen == id_examen)
+//                {
+//                    repondu++;
+//                    if (question.bonneReponse().equals(val.choix_reponse))
+//                    {
+//                        reussi++;
+//                    }
+//                    else
+//                    {
+//                        echec++;
+//                    }
+//                }
+//            }
+//            
+//            return reussi;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        
+//        return 0;
+//    }
 
    
     

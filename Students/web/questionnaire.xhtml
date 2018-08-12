@@ -6,7 +6,8 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <ui:define name="body">
               
@@ -30,10 +31,81 @@
                     <p:menuitem value="Evaluer"         outcome="questionnaireVersEvaluation" icon="ui-icon-person"></p:menuitem>
                 </p:tabMenu>
 
+                <div class="pt-2"></div>
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="lead pull-left">Afficher les enregistrements</p>
+                        <p:commandButton value="Ajouter" action="#{questionBean.nouveauDonnee}" styleClass="pull-right" update="modal" />
+                    </div>
+                </div>
+
+                <p:dialog id="modal" header="Formulaire" widgetVar="modal" width="300">
+
+                    <fieldset>
+
+                        <p:inputText type="hidden" value="#{questionBean.selectionDonnee.id}"/>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Code : <small class="text-red">*</small></label>
+                            <p:inputText styleClass="form-control" placeholder="Identifiant..." value="#{questionBean.selectionDonnee.code}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Libelle : <small class="text-red">*</small></label>
+                            <p:inputText styleClass="form-control" placeholder="Libelle..." value="#{questionBean.selectionDonnee.libelle}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Examen : <small class="text-red">*</small></label>
+                            <p:selectOneMenu id="champ" value="#{questionBean.selectionDonnee.idexamen}" styleClass="form-control" style="width: 100%;">
+                                <f:selectItems value="#{questionBean.itemExamens}" />
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="pt-3"></div>
+
+                        <div class="pull-right">
+                            <p:commandButton value="Enregistrer" action="#{questionBean.enregistrer}" update="@parent:@parent:donnee_table" icon="ui-icon-extlink" />
+                        </div>
+
+                    </fieldset>
+
+                </p:dialog>
+
+                <p:dataTable id="donnee_table" var="val" value="#{questionBean.listeDonnee}" tableStyle="table-layour:auto">
+
+                    <p:column headerText="Compte">
+                        <h:outputText value="#{val.code}" />
+                    </p:column>
+                    <p:column headerText="Libellé">
+                        <h:outputText value="#{val.libelle}" />
+                    </p:column>
+                    <p:column headerText="Examen">
+                        <h:outputText value="#{val.examen.libelle}" />
+                    </p:column>
+                    <p:column headerText="Réponses">
+                        <h:outputText value="(#{val.choixreponse.size()}) Réponse(s)" />
+                    </p:column>
+                    <p:column headerText="Action">
+                        <p:commandButton title="Modifier" update="@parent:@parent:@parent:modal" oncomplete="PF('modal').show()" icon="ui-icon-search">
+                            <f:setPropertyActionListener value="#{val}" target="#{questionBean.selectionDonnee}" />
+                        </p:commandButton>
+                        <p:commandButton title="Supprimer" update="donnee_table" action="#{questionBean.supprimerDonnee}" icon="ui-icon-delete">
+                            <f:setPropertyActionListener value="#{val}" target="#{questionBean.selectionDonnee}" />
+                        </p:commandButton>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        Vous avez #{questionBean.listeDonnee.size()} enregistrements obtenus
+                    </f:facet>
+
+                </p:dataTable>                
+
             </h:form>
-            
+
         </div>
-        
+
     </ui:define>
-    
+
 </ui:composition>

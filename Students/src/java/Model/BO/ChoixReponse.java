@@ -6,7 +6,6 @@
 package Model.BO;
 
 import Model.DAO.*;
-import Model.Test.Program;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -50,16 +49,16 @@ public class ChoixReponse extends BO implements Serializable {
         this.question = question;
     }
     
-     @Override
-    public void creerId() {
-        long id = 0;
-        for(ChoixReponse val : Program.db.choix_reponse)
-        {
-            id = (id < val.getId()) ? val.getId() 
-                                    : id;
-        }
-        this.setId(id);
-    }
+//     @Override
+//    public void creerId() {
+//        long id = 0;
+//        for(ChoixReponse val : Program.db.choix_reponse)
+//        {
+//            id = (id < val.getId()) ? val.getId() 
+//                                    : id;
+//        }
+//        this.setId(id);
+//    }
 
     @Override
     public boolean equals(Object obj) {

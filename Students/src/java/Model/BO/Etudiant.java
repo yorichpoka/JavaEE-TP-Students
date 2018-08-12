@@ -5,7 +5,6 @@
  */
 package Model.BO;
 
-import Model.Test.Program;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -68,16 +67,16 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.est_masculin = est_masculin;
     }
     
-     @Override
-    public void creerId() {
-        long id = 0;
-        for(Etudiant val : Program.db.etudiants)
-        {
-            id = (id < val.getId()) ? val.getId() 
-                                    : id;
-        }
-        this.setId(id);
-    }
+//     @Override
+//    public void creerId() {
+//        long id = 0;
+//        for(Etudiant val : Program.db.etudiants)
+//        {
+//            id = (id < val.getId()) ? val.getId() 
+//                                    : id;
+//        }
+//        this.setId(id);
+//    }
 
     @Override
     public boolean equals(Object obj) {

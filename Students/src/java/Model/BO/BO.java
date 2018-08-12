@@ -41,7 +41,7 @@ public abstract class BO implements Serializable {
         this.libelle = libelle;
     }
     
-    public abstract void creerId ();
+//    public abstract void creerId ();
 
     @Override
     public String toString() {
