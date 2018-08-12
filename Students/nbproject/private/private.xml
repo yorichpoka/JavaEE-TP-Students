@@ -3,22 +3,34 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Test/BD.java</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/shared/_layout_application.xhtml</file>
-            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/examen.xhtml</file>
-            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/DAO/EtudiantDAO.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Bean/QuestionBean.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Test/Program.java</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/shared/_layout_authentification.xhtml</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/questionnaire.xhtml</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/BO/Etudiant.java</file>
-            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Static/STClass.java</file>
-            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/WEB-INF/faces-config.xml</file>
-            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Bean/ExamenBean.java</file>
-            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/evaluation.xhtml</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/BO/Examen.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/DAO/ChoixReponseDAO.java</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/authentification.xhtml</file>
-            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/acceuil.xhtml</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/etudiant.xhtml</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Bean/EtudiantBean.java</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Bean/LoginBean.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/DAO/UtilisateurDAO.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/DAO/QuestionDAO.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/BO/Question.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/BO/Etudiant_Question.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/DAO/Etudiant_QuestionDAO.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/DAO/EtudiantDAO.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/examen.xhtml</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/BO/BO.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/WEB-INF/faces-config.xml</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Bean/ExamenBean.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/Bean/Bean.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/BO/Utilisateur.java</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/DAO/ExamenDAO.java</file>
             <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/web/shared/_header.xhtml</file>
+            <file>file:/E:/DOCUMENTS/KEMING%20Loic/JavaEE-TP-Students/Students/src/java/Model/BO/ChoixReponse.java</file>
         </group>
     </open-files>
 </project-private>
