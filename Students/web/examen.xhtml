@@ -25,16 +25,19 @@
                 <p:growl id="growl" life="5000" />
                 -->
 
+                <!-- Menus -->
                 <p:tabMenu activeIndex="2">
-                    <p:menuitem value="Acceuil"         outcome="examenVersAcceuil" icon="ui-icon-star"></p:menuitem>
-                    <p:menuitem value="Etudiants"       outcome="examenVersEtudiant" icon="ui-icon-search"></p:menuitem>
+                    <p:menuitem value="Acceuil"         outcome="examenVersAcceuil"         icon="ui-icon-star"></p:menuitem>
+                    <p:menuitem value="Etudiants"       outcome="examenVersEtudiant"        icon="ui-icon-search"></p:menuitem>
                     <p:menuitem value="Examens"         icon="ui-icon-document"></p:menuitem>
-                    <p:menuitem value="Questionnaires"  outcome="examenVersQuestionnaire" icon="ui-icon-wrench"></p:menuitem>
-                    <p:menuitem value="Evaluer"         outcome="examenVersEvaluation" icon="ui-icon-person"></p:menuitem>
+                    <p:menuitem value="Questionnaires"  outcome="examenVersQuestionnaire"   icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Reponses"        outcome="examenVersReponse"         icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Evaluer"         outcome="examenVersEvaluation"      icon="ui-icon-person"></p:menuitem>
                 </p:tabMenu>
 
                 <div class="pt-2"></div>
 
+                <!-- Titre -->
                 <div class="row">
                     <div class="col-xl-12">
                         <p class="lead pull-left">Afficher les enregistrements</p>
@@ -42,6 +45,7 @@
                     </div>
                 </div>
 
+                <!-- Formulaire -->
                 <p:dialog id="modal" header="Formulaire" widgetVar="modal" width="300">
 
                     <fieldset>
@@ -59,7 +63,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label style="font-weight: bold;">Durée : <small class="text-red">*</small></label>
+                            <label style="font-weight: bold;">Durée (minutes): <small class="text-red">*</small></label>
                             <p:inputText styleClass="form-control" value="#{examenBean.selectionDonnee.duree}"/>
                         </div>
 
@@ -73,6 +77,7 @@
 
                 </p:dialog>
 
+                <!-- Table des données -->
                 <p:dataTable id="donnee_table" var="val" value="#{examenBean.listeDonnee}" tableStyle="table-layour:auto">
 
                     <p:column headerText="Compte">
@@ -82,10 +87,10 @@
                         <h:outputText value="#{val.libelle}" />
                     </p:column>
                     <p:column headerText="Durée">
-                        <h:outputText value="#{val.duree}" />
+                        <h:outputText value="#{val.duree} min" />
                     </p:column>
                     <p:column headerText="Questions">
-                        <h:outputText value="(#{val.questions.size()}) Question(s)" />
+                        <h:outputText value="(#{val.nombreQuestion()}) Question(s)" />
                     </p:column>
                     <p:column headerText="Action">
                         <p:commandButton title="Modifier" update="@parent:@parent:@parent:modal" oncomplete="PF('modal').show()" icon="ui-icon-search">

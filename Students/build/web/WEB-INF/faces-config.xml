@@ -67,6 +67,11 @@
             <to-view-id>evaluation.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>etudiantVersReponse</from-outcome>
+            <to-view-id>reponse.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     
     <managed-bean>
@@ -107,12 +112,61 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>questionnaireVersQuestionnaire</from-outcome>
-            <to-view-id>questionnaireVersAcceuilnaire.xhtml</to-view-id>
+            <from-outcome>questionnaireVersEvaluation</from-outcome>
+            <to-view-id>evaluation.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>questionnaireVersEvaluation</from-outcome>
+            <from-outcome>questionnaireVersReponse</from-outcome>
+            <to-view-id>reponse.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>choixReponseBean</managed-bean-name>
+        <managed-bean-class>Model.Bean.ChoixReponseBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>con</property-name>
+            <value>#{loginBean.con}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>utilisateur</property-name>
+            <value>#{loginBean.utilisateur}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <navigation-rule>
+        <display-name>choixReponse</display-name>
+        <from-view-id>/reponse.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>reponseVersAcceuil</from-outcome>
+            <to-view-id>acceuil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>reponseVersAuthentification</from-outcome>
+            <to-view-id>authentification.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>reponseVersEtudiant</from-outcome>
+            <to-view-id>etudiant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>reponseVersExamen</from-outcome>
+            <to-view-id>examen.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>reponseVersQuestionnaire</from-outcome>
+            <to-view-id>questionnaire.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>reponseVersEvaluation</from-outcome>
             <to-view-id>evaluation.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -160,6 +214,11 @@
             <to-view-id>evaluation.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>acceuilVersReponse</from-outcome>
+            <to-view-id>reponse.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     
     <managed-bean>
@@ -196,6 +255,11 @@
             <to-view-id>evaluation.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>examenVersReponse</from-outcome>
+            <to-view-id>reponse.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
@@ -226,6 +290,17 @@
             <to-view-id>examen.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>evaluationVersReponse</from-outcome>
+            <to-view-id>reponse.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>etudiant_QuestionBean</managed-bean-name>
+        <managed-bean-class>Model.Bean.Etudiant_QuestionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
     
 </faces-config>

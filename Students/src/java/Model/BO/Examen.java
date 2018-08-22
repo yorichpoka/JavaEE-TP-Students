@@ -85,4 +85,11 @@ public class Examen extends BO implements Serializable {
     public String toString() {        
         return "Examen {" + "questions=" + ((questions != null) ? questions.size() : "") + ", duree=" + duree + ", " + super.toString() + "}";
     }
+    
+    public int nombreQuestion() {
+        
+        // -- Afficher le nombre de question de l'examen -- //
+        return new ExamenDAO().nombreQuestion(getId());
+        
+    }
 }

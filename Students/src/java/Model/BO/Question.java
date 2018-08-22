@@ -110,4 +110,18 @@ public class Question extends BO implements Serializable {
     public String toString() {
         return "Question {" + "id_examen=" + id_examen + ", examen=" + examen != null ? examen.toString() : "" + ", choix_reponse=" + ((choix_reponse != null) ? choix_reponse.size() : "") + ", " + super.toString() + "}";
     }
+    
+    public Examen examen() {
+        
+        // -- Afficher le nombre de question de l'examen -- //
+        return new ExamenDAO().Objet(this.id_examen);
+        
+    }
+    
+    public int nombreChoixReponse() {
+        
+        // -- Afficher le nombre de question de l'examen -- //
+        return new ChoixReponseDAO().nombreChoixReponse(this.getId());
+        
+    }
 }

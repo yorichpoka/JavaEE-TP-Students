@@ -217,4 +217,32 @@ public class ChoixReponseDAO implements DAO<ChoixReponse>{
         return Liste;
         
     }
+    
+    public int nombreChoixReponse(long id_question) {
+        int nombre = 0;
+        
+        try {
+            
+            MysqlConnect mysql_connect = new MysqlConnect();            
+            
+            // -- COnnecter -- //
+            PreparedStatement prep = mysql_connect.connect().prepareStatement(
+                                        "SELECT COUNT(*) FROM choixreponse WHERE id_question=" + id_question
+                                    );
+            
+            ResultSet resultats = prep.executeQuery();
+            
+            if (resultats.next()) {                
+                nombre = resultats.getInt(1);
+            }
+            
+            // -- Déconnecter -- //
+            mysql_connect.disconnect();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return nombre;
+    }
 }

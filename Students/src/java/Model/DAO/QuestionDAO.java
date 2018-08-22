@@ -36,7 +36,8 @@ public class QuestionDAO implements DAO<Question>{
                                         "values (" +
                                             STClass.stringParameter(obj.getCode()) + "," + 
                                             STClass.stringParameter(obj.getLibelle()) + "," + 
-                                            obj.getIdexamen() +
+                                            (obj.getIdexamen() == 0 ? obj.getExamen().getId() 
+                                                                    : obj.getIdexamen()) +
                                         ")"
                                     );
             
@@ -62,7 +63,8 @@ public class QuestionDAO implements DAO<Question>{
                                         "SET " +
                                             "code=" + STClass.stringParameter(obj.getCode()) + "," + 
                                             "libelle=" + STClass.stringParameter(obj.getLibelle()) + "," + 
-                                            "id_examen=" + obj.getIdexamen() +
+                                            "id_examen=" + (obj.getIdexamen() == 0 ? obj.getExamen().getId() 
+                                                                                   : obj.getIdexamen()) +
                                         " WHERE id=" + obj.getId()
                                     );
             
@@ -122,8 +124,8 @@ public class QuestionDAO implements DAO<Question>{
                 obj.setLibelle(resultats.getString("libelle"));
                 obj.setIdexamen(resultats.getInt("id_examen"));
                 // -- AJouter l'exament en reference -- //
-                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
-                obj.setChoixreponse(new ChoixReponseDAO().Lister(obj.getId()));
+//                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
+//                obj.setChoixreponse(new ChoixReponseDAO().Lister(obj.getId()));
                 
                 Liste.add(obj);
                 
@@ -162,8 +164,48 @@ public class QuestionDAO implements DAO<Question>{
                 obj.setLibelle(resultats.getString("libelle"));
                 obj.setIdexamen(resultats.getInt("id_examen"));
                 // -- AJouter l'exament en reference -- //
-                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
-                obj.setChoixreponse(new ChoixReponseDAO().Lister(obj.getId()));
+//                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
+//                obj.setChoixreponse(new ChoixReponseDAO().Lister(obj.getId()));
+                
+                Liste.add(obj);
+                
+            }
+            
+            // -- Déconnecter -- //
+            mysql_connect.disconnect();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Liste;
+    }
+    
+    public ArrayList<Question> ListerQuestion(long id_examen) {
+        ArrayList Liste = new ArrayList();
+        
+        try {
+            
+            MysqlConnect mysql_connect = new MysqlConnect();            
+            
+            // -- COnnecter -- //
+            PreparedStatement prep = mysql_connect.connect().prepareStatement(
+                                        "SELECT * FROM " + table + " WHERE id_examen=" + id_examen
+                                    );
+            
+            ResultSet resultats = prep.executeQuery();
+            
+            while (resultats.next()) {
+                
+                Question obj = new Question();
+                
+                obj.setId(resultats.getInt("id"));
+                obj.setCode(resultats.getString("code"));
+                obj.setLibelle(resultats.getString("libelle"));
+                obj.setIdexamen(resultats.getInt("id_examen"));
+                // -- AJouter l'exament en reference -- //
+//                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
+//                obj.setChoixreponse(new ChoixReponseDAO().Lister(obj.getId()));
                 
                 Liste.add(obj);
                 
@@ -203,7 +245,7 @@ public class QuestionDAO implements DAO<Question>{
                 obj.setLibelle(resultats.getString("libelle"));
                 obj.setIdexamen(resultats.getInt("id_examen"));
                 // -- AJouter l'exament en reference -- //
-                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
+                //obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
                 
                 Liste.add(obj);
                 

@@ -21,14 +21,17 @@
         
             <h:form id="form">
 
+                <!--
                 <p:growl id="growl" life="5000" />
+                -->
 
                 <p:tabMenu activeIndex="3">
-                    <p:menuitem value="Acceuil"         outcome="questionnaireVersAcceuil" icon="ui-icon-star"></p:menuitem>
-                    <p:menuitem value="Etudiants"       outcome="questionnaireVersEtudiant" icon="ui-icon-search"></p:menuitem>
-                    <p:menuitem value="Examens"         outcome="questionnaireVersExamen" icon="ui-icon-document"></p:menuitem>
+                    <p:menuitem value="Acceuil"         outcome="questionnaireVersAcceuil"      icon="ui-icon-star"></p:menuitem>
+                    <p:menuitem value="Etudiants"       outcome="questionnaireVersEtudiant"     icon="ui-icon-search"></p:menuitem>
+                    <p:menuitem value="Examens"         outcome="questionnaireVersExamen"       icon="ui-icon-document"></p:menuitem>
                     <p:menuitem value="Questionnaires"  icon="ui-icon-wrench"></p:menuitem>
-                    <p:menuitem value="Evaluer"         outcome="questionnaireVersEvaluation" icon="ui-icon-person"></p:menuitem>
+                    <p:menuitem value="Reponses"        outcome="questionnaireVersReponse"      icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Evaluer"         outcome="questionnaireVersEvaluation"   icon="ui-icon-person"></p:menuitem>
                 </p:tabMenu>
 
                 <div class="pt-2"></div>
@@ -82,10 +85,10 @@
                         <h:outputText value="#{val.libelle}" />
                     </p:column>
                     <p:column headerText="Examen">
-                        <h:outputText value="#{val.examen.libelle}" />
+                        <h:outputText value="#{val.examen().libelle}" />
                     </p:column>
                     <p:column headerText="Réponses">
-                        <h:outputText value="(#{val.choixreponse.size()}) Réponse(s)" />
+                        <h:outputText value="(#{val.nombreChoixReponse()}) Réponse(s)" />
                     </p:column>
                     <p:column headerText="Action">
                         <p:commandButton title="Modifier" update="@parent:@parent:@parent:modal" oncomplete="PF('modal').show()" icon="ui-icon-search">

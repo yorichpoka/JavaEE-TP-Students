@@ -9,37 +9,39 @@ import Model.BO.*;
 import Model.DAO.*;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.faces.model.SelectItem;
 
 /**
  *
  * @author POKA
  */
-public class ExamenBean extends Bean {
+public class ChoixReponseBean extends Bean {
 
-    private Examen selectionDonnee;
-    private ArrayList<Examen> listeDonnee;
+    private ChoixReponse selectionDonnee;
+    private ArrayList<ChoixReponse> listeDonnee;
     private String rechercher_champ, rechercher_valeur;
-    private ExamenDAO examenDAO;
+    private ChoixReponseDAO choixReponseDAO;
+    private ArrayList<SelectItem> itemQuestion;
     
     /**
-     * Creates a new instance of ExamenBean
+     * Creates a new instance of ChoixReponseBean
      */
-    public ExamenBean() {
+    public ChoixReponseBean() {
     }
 
-    public Examen getSelectionDonnee() {
+    public ChoixReponse getSelectionDonnee() {
         return selectionDonnee;
     }
 
-    public void setSelectionDonnee(Examen selectionDonnee) {
+    public void setSelectionDonnee(ChoixReponse selectionDonnee) {
         this.selectionDonnee = selectionDonnee;
     }
 
-    public ArrayList<Examen> getListeDonnee() {
+    public ArrayList<ChoixReponse> getListeDonnee() {
         return listeDonnee;
     }
 
-    public void setListeDonnee(ArrayList<Examen> listeDonnee) {
+    public void setListeDonnee(ArrayList<ChoixReponse> listeDonnee) {
         this.listeDonnee = listeDonnee;
     }
 
@@ -58,6 +60,14 @@ public class ExamenBean extends Bean {
     public void setRechercher_valeur(String rechercher_valeur) {
         this.rechercher_valeur = rechercher_valeur;
     }
+
+    public ArrayList<SelectItem> getItemQuestion() {
+        return itemQuestion;
+    }
+
+    public void setItemQuestion(ArrayList<SelectItem> itemQuestion) {
+        this.itemQuestion = itemQuestion;
+    }
     
     @PostConstruct
     @Override
@@ -65,9 +75,11 @@ public class ExamenBean extends Bean {
         
         try {
             // -- Initialiser les variables -- //
-            this.examenDAO = new ExamenDAO();
-            this.listeDonnee = this.examenDAO.Lister();
-            this.selectionDonnee = new Examen();
+            this.choixReponseDAO = new ChoixReponseDAO();
+            this.listeDonnee = this.choixReponseDAO.Lister();
+            this.selectionDonnee = new ChoixReponse();
+            this.itemQuestion = new ArrayList<SelectItem>();
+            new QuestionDAO().Lister().forEach(l -> this.itemQuestion.add(new SelectItem(l.getId(), l.getLibelle())));
         } catch (Exception ex) { }
         
     }
@@ -76,11 +88,11 @@ public class ExamenBean extends Bean {
         
         try {
             // -- Suppression de l'objet -- //
-            this.examenDAO.Supprimer(this.selectionDonnee.getId());
+            this.choixReponseDAO.Supprimer(this.selectionDonnee.getId());
             // -- Rechercher les enregistrements -- //
-            this.listeDonnee = this.examenDAO.Lister();
+            this.listeDonnee = this.choixReponseDAO.Lister();
             // -- Réinitialiser l'element à supprimer -- //
-            this.selectionDonnee = new Examen();
+            this.selectionDonnee = new ChoixReponse();
         }
         catch(Exception ex){
             // -- Affichier le message d'erreur -- //
@@ -92,7 +104,7 @@ public class ExamenBean extends Bean {
     public void nouveauDonnee() {
         
         // -- Réinitialiser l'element à ajouter -- //
-        this.selectionDonnee = new Examen();
+        this.selectionDonnee = new ChoixReponse();
         // -- Afficher ou fermer le modal -- //
         afficherFermerModal(true);
         
@@ -105,17 +117,17 @@ public class ExamenBean extends Bean {
             if (this.selectionDonnee.getId() == 0)
             {
                 // -- Ajouter de l'objet -- //
-                this.examenDAO.Ajouter(this.selectionDonnee); 
+                this.choixReponseDAO.Ajouter(this.selectionDonnee); 
             }
             else
             {
                 // -- Ajouter de l'objet -- //
-                this.examenDAO.Modifier(this.selectionDonnee);
+                this.choixReponseDAO.Modifier(this.selectionDonnee);
             }
             // -- Rechercher les enregistrements -- //
-            this.listeDonnee = this.examenDAO.Lister();
+            this.listeDonnee = this.choixReponseDAO.Lister();
             // -- Réinitialiser l'element à supprimer -- //
-            this.selectionDonnee = new Examen();
+            this.selectionDonnee = new ChoixReponse();
         }
         catch(Exception ex){
             // -- Affichier le message d'erreur -- //

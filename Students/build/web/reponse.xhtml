@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition 
+    template="shared/_layout_application.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:define name="body">
+              
+        <div class="animated fadeInLeft delay-006">
+
+            <h3>Gestion des réponses</h3>
+
+        </div>
+
+        <div class="animated zoomIn delay-006">
+        
+            <h:form id="form">
+
+                <!--
+                <p:growl id="growl" life="5000" />
+                -->
+
+                <p:tabMenu activeIndex="4">
+                    <p:menuitem value="Acceuil"         outcome="reponseVersAcceuil"        icon="ui-icon-star"></p:menuitem>
+                    <p:menuitem value="Etudiants"       outcome="reponseVersEtudiant"       icon="ui-icon-search"></p:menuitem>
+                    <p:menuitem value="Examens"         outcome="reponseVersExamen"         icon="ui-icon-document"></p:menuitem>
+                    <p:menuitem value="Questionnaires"  outcome="reponseVersQuestionnaire"  icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Reponses"        icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Evaluer"         outcome="reponseVersEvaluation"     icon="ui-icon-person"></p:menuitem>
+                </p:tabMenu>
+
+                <div class="pt-2"></div>
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="lead pull-left">Afficher les enregistrements</p>
+                        <p:commandButton value="Ajouter" action="#{choixReponseBean.nouveauDonnee}" styleClass="pull-right" update="modal" />
+                    </div>
+                </div>
+
+                <p:dialog id="modal" header="Formulaire" widgetVar="modal" width="300">
+
+                    <fieldset>
+
+                        <p:inputText type="hidden" value="#{choixReponseBean.selectionDonnee.id}"/>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Code : <small class="text-red">*</small></label>
+                            <p:inputText styleClass="form-control" placeholder="Identifiant..." value="#{choixReponseBean.selectionDonnee.code}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Libelle : <small class="text-red">*</small></label>
+                            <p:inputText styleClass="form-control" placeholder="Libelle..." value="#{choixReponseBean.selectionDonnee.libelle}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Question : <small class="text-red">*</small></label>
+                            <p:selectOneMenu value="#{choixReponseBean.selectionDonnee.idquestion}" styleClass="form-control" style="width: 100%;">
+                                <f:selectItems value="#{choixReponseBean.itemQuestion}" />
+                            </p:selectOneMenu>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Bonne réponse : <small class="text-red">*</small></label>
+                            <p:selectOneMenu value="#{choixReponseBean.selectionDonnee.bonnereponse}" styleClass="form-control" style="width: 100%">
+                                <f:selectItem itemLabel="Non" itemValue="false" />
+                                <f:selectItem itemLabel="Oui" itemValue="true" />
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="pt-3"></div>
+
+                        <div class="pull-right">
+                            <p:commandButton value="Enregistrer" action="#{choixReponseBean.enregistrer}" update="@parent:@parent:donnee_table" icon="ui-icon-extlink" />
+                        </div>
+
+                    </fieldset>
+
+                </p:dialog>
+
+                <p:dataTable id="donnee_table" var="val" value="#{choixReponseBean.listeDonnee}" tableStyle="table-layour:auto">
+
+                    <p:column headerText="Compte">
+                        <h:outputText value="#{val.code}" />
+                    </p:column>
+                    <p:column headerText="Libellé">
+                        <h:outputText value="#{val.libelle}" />
+                    </p:column>
+                    <p:column headerText="Question">
+                        <h:outputText value="#{val.question().libelle}" />
+                    </p:column>
+                    <p:column headerText="Bonne réponse ?">
+                        <h:outputText value="#{val.bonnereponse()}" />
+                    </p:column>
+                    <p:column headerText="Action">
+                        <p:commandButton title="Modifier" update="@parent:@parent:@parent:modal" oncomplete="PF('modal').show()" icon="ui-icon-search">
+                            <f:setPropertyActionListener value="#{val}" target="#{choixReponseBean.selectionDonnee}" />
+                        </p:commandButton>
+                        <p:commandButton title="Supprimer" update="donnee_table" action="#{choixReponseBean.supprimerDonnee}" icon="ui-icon-delete">
+                            <f:setPropertyActionListener value="#{val}" target="#{choixReponseBean.selectionDonnee}" />
+                        </p:commandButton>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        Vous avez #{choixReponseBean.listeDonnee.size()} enregistrements obtenus
+                    </f:facet>
+
+                </p:dataTable>                
+
+            </h:form>
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>

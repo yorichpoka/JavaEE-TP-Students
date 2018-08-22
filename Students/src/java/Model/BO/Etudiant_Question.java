@@ -27,6 +27,17 @@ public class Etudiant_Question extends BO implements Serializable {
 
     public Etudiant_Question() {
     }
+    
+    public Etudiant_Question(long id_etudiant, long id_question) {
+        this.id_etudiant = id_etudiant;
+        this.id_question = id_question;
+    }
+    
+    public Etudiant_Question(long id_etudiant, long id_question, long id_reponse) {
+        this.id_etudiant = id_etudiant;
+        this.id_question = id_question;
+        this.choix_reponse = new ChoixReponse(id_reponse);
+    }
 
     public long getId_etudiant() {
         return id_etudiant;
