@@ -28,16 +28,16 @@ public class Utilisateur extends BO implements Serializable {
         this.mot_de_passe = mot_de_passe;
     }    
     
-    public String getMotdepasse() {
+    public String getMot_de_passe() {
         return mot_de_passe;
     }
 
-    public void setMotdepasse(String mot_de_passe) {
-        this.mot_de_passe = mot_de_passe;
+    public void setMot_de_passe(String motdepasse) {
+        this.mot_de_passe = motdepasse;
     }
 
-    @Override
-    public void creerId() {
+//    @Override
+//    public void creerId() {
 //        long id = 0;
 //        for(Utilisateur val : Program.db.utilisateurs)
 //        {
@@ -45,7 +45,7 @@ public class Utilisateur extends BO implements Serializable {
 //                                    : id;
 //        }
 //        this.setId(id);
-    }
+//    }
 
     @Override
     public boolean equals(Object obj) {

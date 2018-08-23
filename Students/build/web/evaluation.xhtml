@@ -5,8 +5,10 @@
     template="shared/_layout_application.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <ui:define name="body">
               
@@ -18,22 +20,110 @@
 
         <div class="animated zoomIn delay-006">
         
-            <h:form id="form">
+            <h:form>
 
-                <p:growl id="growl" life="5000" />
+                <p:growl id="growl" sticky="true" showDetail="true" />
 
-                <p:tabMenu activeIndex="4">
-                    <p:menuitem value="Acceuil"         outcome="evaluationVersAcceuil" icon="ui-icon-star"></p:menuitem>
-                    <p:menuitem value="Etudiants"       outcome="evaluationVersEtudiant" icon="ui-icon-search"></p:menuitem>
-                    <p:menuitem value="Examens"         outcome="evaluationVersExamen" icon="ui-icon-document"></p:menuitem>
-                    <p:menuitem value="Questionnaires"  outcome="evaluationVersQuestionnaire" icon="ui-icon-wrench"></p:menuitem>
+                <p:tabMenu activeIndex="5">
+                    <p:menuitem value="Acceuil"         outcome="evaluationVersAcceuil"         icon="ui-icon-star"></p:menuitem>
+                    <p:menuitem value="Etudiants"       outcome="evaluationVersEtudiant"        icon="ui-icon-search"></p:menuitem>
+                    <p:menuitem value="Examens"         outcome="evaluationVersExamen"          icon="ui-icon-document"></p:menuitem>
+                    <p:menuitem value="Questionnaires"  outcome="evaluationVersQuestionnaire"   icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Reponses"        outcome="evaluationVersReponse"         icon="ui-icon-wrench"></p:menuitem>
                     <p:menuitem value="Evaluer"         icon="ui-icon-person"></p:menuitem>
                 </p:tabMenu>
 
+                <div class="pt-2"></div>
+
+                <!-- Titre -->
+                <div class="row">
+                    
+                    <div class="col-xl-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Sélectionner un étudiant : <small class="text-red">*</small></label>
+                            <p:selectOneMenu value="#{etudiant_QuestionBean.id_etudiant}" style="width: 100%;">
+                                <f:selectItems value="#{etudiant_QuestionBean.itemEtudiants}" />
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Sélectionner un examen : <small class="text-red">*</small></label>
+                            <p:selectOneMenu value="#{etudiant_QuestionBean.id_examen}" style="width: 100%;">
+                                <f:selectItems value="#{etudiant_QuestionBean.itemExamens}" />
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold; color: white;">_</label>
+                            <br />
+                            <p:commandButton value="Procéder à l'évaluation" action="#{etudiant_QuestionBean.nouveauEvaluation}" styleClass="pull-right" update="panelwizard" />
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-12">
+                        <p:outputPanel id="panelwizard">
+                            <c:if test="#{etudiant_QuestionBean.questionnaire.size() == 0}">
+                                <p class="lead pull-left">
+                                    Aucune question pour cet examen
+                                </p>
+                            </c:if>
+                            <c:if test="#{etudiant_QuestionBean.questionnaire.size() != 0}">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <p class="lead pull-left">
+                                            Remplir le questionnaire de l'examination
+                                        </p>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <p:wizard nextLabel="Suivant" backLabel="Précédent" flowListener="#{etudiant_QuestionBean.questionChange}">
+                                            <c:forEach var="val" items="#{etudiant_QuestionBean.questionnaire}" varStatus="i">
+                                                <c:catch>
+                                                    <p:tab id="tab#{val.id}" title="Question '#{val.code}'">
+                                                        <p:panel header="#{val.libelle} ?">
+                                                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                                                <p:outputLabel value="Choix de réponse :" />
+                                                                <p:selectOneRadio value="#{etudiant_QuestionBean.id_reponse_temp}">
+                                                                    <f:selectItems value="#{etudiant_QuestionBean.itemReponses(val.id)}" />
+                                                                </p:selectOneRadio>
+                                                            </h:panelGrid>
+                                                        </p:panel>
+                                                    </p:tab>
+                                                </c:catch>
+                                            </c:forEach>
+                                            <p:tab id="tab0" title="Confirmation">
+                                                <p:outputPanel id="panelwizardResult">
+                                                    <p:panel header="Confirmer les réponses ?">
+                                                        <div class="row">
+                                                            <div class="col-xl-12">
+                                                                <p:dataList value="#{etudiant_QuestionBean.reponseQuestionnaire}" var="val">
+                                                                    <b>Question :</b> #{val.question.libelle} <b>Réponse :</b> <i>#{val.choix_reponse.libelle}</i>      <i class="fa fa-square"></i> <b>#{val.choix_reponse.bonnereponse()}</b>
+                                                                </p:dataList>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="col-xl-12">
+                                                                <p:commandButton value="Confirmer" actionListener="#{etudiant_QuestionBean.enregistrer}" update="panelwizard" process="@this" />
+                                                            </div>
+                                                        </div>
+                                                    </p:panel>
+                                                </p:outputPanel>
+                                            </p:tab>
+                                        </p:wizard>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </p:outputPanel>
+                    </div>
+                    
+                </div>
+
             </h:form>
-            
+
         </div>
-        
+
     </ui:define>
-    
+
 </ui:composition>

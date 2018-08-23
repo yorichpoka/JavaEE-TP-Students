@@ -7,7 +7,6 @@ package Model.BO;
 
 import Model.DAO.*;
 import Model.Static.STClass;
-import Model.Test.Program;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -53,16 +52,16 @@ public class Examen extends BO implements Serializable {
         super.setId(id);
     } 
     
-    @Override
-    public void creerId() {
-        long id = 0;
-        for(Examen val : Program.db.examens)
-        {
-            id = (id < val.getId()) ? val.getId() 
-                                    : id;
-        }
-        this.setId(id);
-    }
+//    @Override
+//    public void creerId() {
+//        long id = 0;
+//        for(Examen val : Program.db.examens)
+//        {
+//            id = (id < val.getId()) ? val.getId() 
+//                                    : id;
+//        }
+//        this.setId(id);
+//    }
 
     @Override
     public boolean equals(Object obj) {
@@ -85,5 +84,12 @@ public class Examen extends BO implements Serializable {
     @Override
     public String toString() {        
         return "Examen {" + "questions=" + ((questions != null) ? questions.size() : "") + ", duree=" + duree + ", " + super.toString() + "}";
+    }
+    
+    public int nombreQuestion() {
+        
+        // -- Afficher le nombre de question de l'examen -- //
+        return new ExamenDAO().nombreQuestion(getId());
+        
     }
 }

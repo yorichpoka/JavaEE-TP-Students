@@ -7,7 +7,6 @@ package Model.BO;
 
 import Model.DAO.*;
 import Model.Static.STClass;
-import Model.Test.Program;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -65,20 +64,20 @@ public class Question extends BO implements Serializable {
         super.setId(id);
     } 
     
-     @Override
-    public void creerId() {
-        long id = 0;
-        for(Question val : Program.db.questions)
-        {
-            id = (id < val.getId()) ? val.getId() 
-                                    : id;
-        }
-        this.setId(id);
-    }
+//     @Override
+//    public void creerId() {
+//        long id = 0;
+//        for(Question val : Program.db.questions)
+//        {
+//            id = (id < val.getId()) ? val.getId() 
+//                                    : id;
+//        }
+//        this.setId(id);
+//    }
 
     public ChoixReponse bonneReponse() {
         
-        for(ChoixReponse val : Program.db.choix_reponse)
+        for(ChoixReponse val : choix_reponse)
         {
             if (val.bonne_reponse)
             {
@@ -110,5 +109,19 @@ public class Question extends BO implements Serializable {
     @Override
     public String toString() {
         return "Question {" + "id_examen=" + id_examen + ", examen=" + examen != null ? examen.toString() : "" + ", choix_reponse=" + ((choix_reponse != null) ? choix_reponse.size() : "") + ", " + super.toString() + "}";
+    }
+    
+    public Examen examen() {
+        
+        // -- Afficher le nombre de question de l'examen -- //
+        return new ExamenDAO().Objet(this.id_examen);
+        
+    }
+    
+    public int nombreChoixReponse() {
+        
+        // -- Afficher le nombre de question de l'examen -- //
+        return new ChoixReponseDAO().nombreChoixReponse(this.getId());
+        
     }
 }

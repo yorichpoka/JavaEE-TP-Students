@@ -18,58 +18,87 @@
         </div>
 
         <div class="animated zoomIn delay-006">
-              
-            <h:form id="form">
-                    
-                <!-- 
-                <p:growl id="growl" life="5000" />
-                -->
 
+            <h:form>
+                    
+                <!--
+                <p:growl id="growl" />
+                -->
+                
                 <p:tabMenu activeIndex="1">
-                    <p:menuitem value="Acceuil"         outcome="etudiantVersAcceuil" icon="ui-icon-star"></p:menuitem>
+                    <p:menuitem value="Acceuil"         outcome="etudiantVersAcceuil"       icon="ui-icon-star"></p:menuitem>
                     <p:menuitem value="Etudiants"       icon="ui-icon-search"></p:menuitem>
-                    <p:menuitem value="Examens"         outcome="etudiantVersExamen" icon="ui-icon-document"></p:menuitem>
+                    <p:menuitem value="Examens"         outcome="etudiantVersExamen"        icon="ui-icon-document"></p:menuitem>
                     <p:menuitem value="Questionnaires"  outcome="etudiantVersQuestionnaire" icon="ui-icon-wrench"></p:menuitem>
-                    <p:menuitem value="Evaluer"         outcome="etudiantVersEvaluation" icon="ui-icon-person"></p:menuitem>
+                    <p:menuitem value="Reponses"        outcome="etudiantVersReponse"       icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Evaluer"         outcome="etudiantVersEvaluation"    icon="ui-icon-person"></p:menuitem>
                 </p:tabMenu>
                 
                 <div class="pt-2"></div>
                 
-                <p:panelGrid columns="4" styleClass="width: 100%;">
-                    <p:outputLabel for="champ" value="Rechercher par :" />
-                    <p:selectOneMenu id="champ" value="#{etudiantBean.rechercher_champ}" styleClass="width:100%">
-                        <f:selectItem itemLabel="Toutes les données"    itemValue="*" />
-                        <f:selectItem itemLabel="Compte"                itemValue="code" />
-                        <f:selectItem itemLabel="Mot de passe"          itemValue="mot_de_passe" />
-                        <f:selectItem itemLabel="Nom"                   itemValue="libelle" />
-                        <f:selectItem itemLabel="Prenom"                itemValue="prenom" />
-                        <f:selectItem itemLabel="Email"                 itemValue="email" />
-                        <f:selectItem itemLabel="Sexe"                  itemValue="est_masculin" />
-                    </p:selectOneMenu>
-                    <p:inputText id="terme_a_rechercher" value="#{etudiantBean.rechercher_valeur}" title="Entre une expression à rechercher" />
-                    <p:commandButton id="btn_rechercher" action="#{etudiantBean.rechercher_methode}" value="Rechercher" update="donnee_table" />
-                </p:panelGrid>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="lead pull-left">Afficher les enregistrements</p>
+                        <p:commandButton value="Ajouter" action="#{etudiantBean.nouveauDonnee}" styleClass="pull-right" update="modal" />
+                    </div>
+                </div>
                 
-                <div class="pt-2"></div>
+                <p:dialog id="modal" header="Formulaire" widgetVar="modal" width="300">
+                    
+                    <fieldset>
+
+                        <p:inputText type="hidden" value="#{etudiantBean.selectionDonnee.id}"/>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Compte : <small class="text-red">*</small></label>
+                            <p:inputText styleClass="form-control" placeholder="Identifiant..." value="#{etudiantBean.selectionDonnee.code}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;" for="mot_de_passe">Mot de passe : <small class="text-red">*</small></label>
+                            <p:password styleClass="form-control" placeholder="Mot de passe..." value="#{etudiantBean.selectionDonnee.mot_de_passe}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Nom : <small class="text-red">*</small></label>
+                            <p:inputText styleClass="form-control" placeholder="Nom..." value="#{etudiantBean.selectionDonnee.libelle}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Prenom : <small class="text-red">*</small></label>
+                            <p:inputText styleClass="form-control" placeholder="Prénom..." value="#{etudiantBean.selectionDonnee.prenom}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Email : <small class="text-red">*</small></label>
+                            <p:inputText styleClass="form-control" type="Email" placeholder="Email..." value="#{etudiantBean.selectionDonnee.email}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Sexe : <small class="text-red">*</small></label>
+                            <p:selectOneMenu id="champ" value="#{etudiantBean.selectionDonnee.est_masculin}" styleClass="form-control" style="width: 100%;">
+                                <f:selectItem itemLabel="Masculin"  itemValue="true" />
+                                <f:selectItem itemLabel="Feminin"   itemValue="false" />
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="pt-3"></div>
+
+                        <div class="pull-right">
+                            <p:commandButton value="Enregistrer" action="#{etudiantBean.enregistrer}" update="@parent:@parent:donnee_table" icon="ui-icon-extlink" />
+                        </div>
+
+                    </fieldset>
+
+                </p:dialog>
                 
-                <p:dataTable id="donnee_table" var="val" 
-                             value="#{etudiantBean.listeDonnee}" selection="#{etudiantBean.selectionDonnee}" 
-                             rowKey="#{etudiantBean.selectionDonnee}" 
-                             tableStyle="table-layour:auto">
+                <p:dataTable id="donnee_table" var="val" value="#{etudiantBean.listeDonnee}" tableStyle="table-layour:auto">
                     
-                    <f:facet name="header">
-                        Afficher les enregistrements
-                    </f:facet>
-                    
-                    <p:column selectionMode="single" style="width: 32px; text-align: center;"></p:column>
-                    <p:column headerText="Id">
-                        <h:outputText value="#{val.id}" />
-                    </p:column>
                     <p:column headerText="Compte">
                         <h:outputText value="#{val.code}" />
                     </p:column>
                     <p:column headerText="Mot de passe">
-                        <h:outputText value="#{val.motdepasse}" />
+                        <h:outputText value="#{val.mot_de_passe}" />
                     </p:column>
                     <p:column headerText="Nom">
                         <h:outputText value="#{val.libelle}" />
@@ -81,19 +110,22 @@
                         <h:outputText value="#{val.email}" />
                     </p:column>
                     <p:column headerText="Sexe">
-                        <h:outputText value="#{val.sexe}" />
+                        <h:outputText value="#{val.sexe()}" />
                     </p:column>
                     <p:column headerText="Action">
-                        <p:commandButton value="Modifier" action="#{etudiantBean.modifierDonnee(val.id)}" update="" />
-                        <p:commandButton value="Supprimer" action="#{etudiantBean.supprimerDonnee(val.id)}" update="" />
+                        <p:commandButton title="Modifier" update="@parent:@parent:@parent:modal" oncomplete="PF('modal').show()" icon="ui-icon-search">
+                            <f:setPropertyActionListener value="#{val}" target="#{etudiantBean.selectionDonnee}" />
+                        </p:commandButton>
+                        <p:commandButton title="Supprimer" update="donnee_table" action="#{etudiantBean.supprimerDonnee}" icon="ui-icon-delete">
+                            <f:setPropertyActionListener value="#{val}" target="#{etudiantBean.selectionDonnee}" />
+                        </p:commandButton>
                     </p:column>
                     
                     <f:facet name="footer">
-                        Vous avez #{etudiantBean.listeDonnee.size()} enregistrements obtenus sur #{etudiantBean.total}
+                        Vous avez #{etudiantBean.listeDonnee.size()} enregistrements obtenus
                     </f:facet>
                     
-                </p:dataTable>
-                
+                </p:dataTable>                
 
             </h:form>
             

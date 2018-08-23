@@ -6,7 +6,6 @@
 package Model.BO;
 
 import Model.DAO.*;
-import Model.Test.Program;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -27,6 +26,18 @@ public class Etudiant_Question extends BO implements Serializable {
     public ChoixReponse choix_reponse;
 
     public Etudiant_Question() {
+    }
+    
+    public Etudiant_Question(long id_etudiant, long id_question) {
+        this.id_etudiant = id_etudiant;
+        this.id_question = id_question;
+    }
+    
+    public Etudiant_Question(long id_etudiant, long id_question, long id_reponse) {
+        this.id_etudiant = id_etudiant;
+        this.id_question = id_question;
+        this.id_choix_reponse = id_reponse;
+        this.choix_reponse = new ChoixReponse(id_reponse);
     }
 
     public long getId_etudiant() {
@@ -77,16 +88,16 @@ public class Etudiant_Question extends BO implements Serializable {
         this.id_choix_reponse = id_choix_reponse;
     }
     
-     @Override
-    public void creerId() {
-        long id = 0;
-        for(Etudiant_Question val : Program.db.etudiant_question)
-        {
-            id = (id < val.getId()) ? val.getId() 
-                                    : id;
-        }
-        this.setId(id);
-    }
+//     @Override
+//    public void creerId() {
+//        long id = 0;
+//        for(Etudiant_Question val : Program.db.etudiant_question)
+//        {
+//            id = (id < val.getId()) ? val.getId() 
+//                                    : id;
+//        }
+//        this.setId(id);
+//    }
 
     @Override
     public boolean equals(Object obj) {

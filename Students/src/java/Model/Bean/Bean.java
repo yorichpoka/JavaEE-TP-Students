@@ -10,6 +10,7 @@ import java.sql.Connection;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 
 public abstract class Bean {
@@ -48,6 +49,14 @@ public abstract class Bean {
                         description
                 )
             );
+        
+    }
+    
+    public void afficherFermerModal(boolean afficher) {
+        
+        // -- Fermer le modal -- //
+        RequestContext.getCurrentInstance().execute(afficher ? "PF('modal').show();" 
+                                                             : "PF('modal').hide();");
         
     }
 }

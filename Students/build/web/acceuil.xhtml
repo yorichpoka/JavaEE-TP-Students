@@ -21,15 +21,32 @@
 
             <h:form id="form">
 
+                <!--
                 <p:growl id="growl" life="5000" />
+                -->
 
                 <p:tabMenu activeIndex="0">
                     <p:menuitem value="Acceuil"         icon="ui-icon-star"></p:menuitem>
-                    <p:menuitem value="Etudiants"       outcome="acceuilVersEtudiant" icon="ui-icon-search"></p:menuitem>
-                    <p:menuitem value="Examens"         outcome="acceuilVersExamen" icon="ui-icon-document"></p:menuitem>
-                    <p:menuitem value="Questionnaires"  outcome="acceuilVersQuestionnaire" icon="ui-icon-wrench"></p:menuitem>
-                    <p:menuitem value="Evaluer"         outcome="acceuilVersEvaluation" icon="ui-icon-person"></p:menuitem>
+                    <p:menuitem value="Etudiants"       outcome="acceuilVersEtudiant"       icon="ui-icon-search"></p:menuitem>
+                    <p:menuitem value="Examens"         outcome="acceuilVersExamen"         icon="ui-icon-document"></p:menuitem>
+                    <p:menuitem value="Questionnaires"  outcome="acceuilVersQuestionnaire"  icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Reponses"        outcome="acceuilVersReponse"        icon="ui-icon-wrench"></p:menuitem>
+                    <p:menuitem value="Evaluer"         outcome="acceuilVersEvaluation"     icon="ui-icon-person"></p:menuitem>
                 </p:tabMenu>
+                
+                <div class="pt-2"></div>
+                
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="lead pull-left"></p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p:chart type="line" model="#{acceuilBean.lineModel1}" style="width:100%;" widgetVar="chart" />
+                    </div>
+                </div>
 
             </h:form>
 

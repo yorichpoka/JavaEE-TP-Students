@@ -8,7 +8,6 @@ package Model.DAO;
 import Model.BO.ChoixReponse;
 import Model.Static.STClass;
 import Model.Test.MysqlConnect;
-import Model.Test.Program;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -180,21 +179,70 @@ public class ChoixReponseDAO implements DAO<ChoixReponse>{
     }
 
     public ArrayList<ChoixReponse> Lister(long id_question) {
+        
+        ArrayList Liste = new ArrayList();
+        
         try {
-            ArrayList<ChoixReponse> liste = new ArrayList<ChoixReponse>();
-            for(ChoixReponse val : Program.db.choix_reponse)
-            {
-                if (val.getIdquestion() == id_question)
-                {
-                    liste.add(val);
-                }
+            
+            MysqlConnect mysql_connect = new MysqlConnect();            
+            
+            // -- COnnecter -- //
+            PreparedStatement prep = mysql_connect.connect().prepareStatement(
+                                        "SELECT * FROM " + table + " WHERE id_question=" + id_question
+                                    );
+            
+            ResultSet resultats = prep.executeQuery();
+            
+            while (resultats.next()) {
+                
+                ChoixReponse obj = new ChoixReponse();
+                
+                obj.setId(resultats.getInt("id"));
+                obj.setCode(resultats.getString("code"));
+                obj.setLibelle(resultats.getString("libelle"));
+                obj.setIdquestion(resultats.getInt("id_question"));
+                obj.setBonnereponse(resultats.getBoolean("bonne_reponse"));
+                
+                Liste.add(obj);
+                
             }
-            return liste;
+            
+            // -- Déconnecter -- //
+            mysql_connect.disconnect();
             
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return null;
+        
+        return Liste;
+        
+    }
+    
+    public int nombreChoixReponse(long id_question) {
+        int nombre = 0;
+        
+        try {
+            
+            MysqlConnect mysql_connect = new MysqlConnect();            
+            
+            // -- COnnecter -- //
+            PreparedStatement prep = mysql_connect.connect().prepareStatement(
+                                        "SELECT COUNT(*) FROM choixreponse WHERE id_question=" + id_question
+                                    );
+            
+            ResultSet resultats = prep.executeQuery();
+            
+            if (resultats.next()) {                
+                nombre = resultats.getInt(1);
+            }
+            
+            // -- Déconnecter -- //
+            mysql_connect.disconnect();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return nombre;
     }
 }

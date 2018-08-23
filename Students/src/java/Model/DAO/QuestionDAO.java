@@ -8,7 +8,6 @@ package Model.DAO;
 import Model.BO.Question;
 import Model.Static.STClass;
 import Model.Test.MysqlConnect;
-import Model.Test.Program;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,6 +19,9 @@ import java.util.ArrayList;
 public class QuestionDAO implements DAO<Question>{
 
     private String table = "questions";
+
+    public QuestionDAO() {
+    }
     
     @Override
     public void Ajouter(Question obj) {
@@ -34,7 +36,8 @@ public class QuestionDAO implements DAO<Question>{
                                         "values (" +
                                             STClass.stringParameter(obj.getCode()) + "," + 
                                             STClass.stringParameter(obj.getLibelle()) + "," + 
-                                            obj.getIdexamen() +
+                                            (obj.getIdexamen() == 0 ? obj.getExamen().getId() 
+                                                                    : obj.getIdexamen()) +
                                         ")"
                                     );
             
@@ -60,7 +63,8 @@ public class QuestionDAO implements DAO<Question>{
                                         "SET " +
                                             "code=" + STClass.stringParameter(obj.getCode()) + "," + 
                                             "libelle=" + STClass.stringParameter(obj.getLibelle()) + "," + 
-                                            "id_examen=" + obj.getIdexamen() +
+                                            "id_examen=" + (obj.getIdexamen() == 0 ? obj.getExamen().getId() 
+                                                                                   : obj.getIdexamen()) +
                                         " WHERE id=" + obj.getId()
                                     );
             
@@ -119,6 +123,89 @@ public class QuestionDAO implements DAO<Question>{
                 obj.setCode(resultats.getString("code"));
                 obj.setLibelle(resultats.getString("libelle"));
                 obj.setIdexamen(resultats.getInt("id_examen"));
+                // -- AJouter l'exament en reference -- //
+//                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
+//                obj.setChoixreponse(new ChoixReponseDAO().Lister(obj.getId()));
+                
+                Liste.add(obj);
+                
+            }
+            
+            // -- Déconnecter -- //
+            mysql_connect.disconnect();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Liste;
+    }
+    
+    public ArrayList<Question> Lister(long id_examen) {
+        ArrayList Liste = new ArrayList();
+        
+        try {
+            
+            MysqlConnect mysql_connect = new MysqlConnect();            
+            
+            // -- COnnecter -- //
+            PreparedStatement prep = mysql_connect.connect().prepareStatement(
+                                        "SELECT * FROM " + table + " WHERE id_examen=" + id_examen
+                                    );
+            
+            ResultSet resultats = prep.executeQuery();
+            
+            while (resultats.next()) {
+                
+                Question obj = new Question();
+                
+                obj.setId(resultats.getInt("id"));
+                obj.setCode(resultats.getString("code"));
+                obj.setLibelle(resultats.getString("libelle"));
+                obj.setIdexamen(resultats.getInt("id_examen"));
+                // -- AJouter l'exament en reference -- //
+//                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
+//                obj.setChoixreponse(new ChoixReponseDAO().Lister(obj.getId()));
+                
+                Liste.add(obj);
+                
+            }
+            
+            // -- Déconnecter -- //
+            mysql_connect.disconnect();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Liste;
+    }
+    
+    public ArrayList<Question> ListerQuestion(long id_examen) {
+        ArrayList Liste = new ArrayList();
+        
+        try {
+            
+            MysqlConnect mysql_connect = new MysqlConnect();            
+            
+            // -- COnnecter -- //
+            PreparedStatement prep = mysql_connect.connect().prepareStatement(
+                                        "SELECT * FROM " + table + " WHERE id_examen=" + id_examen
+                                    );
+            
+            ResultSet resultats = prep.executeQuery();
+            
+            while (resultats.next()) {
+                
+                Question obj = new Question();
+                
+                obj.setId(resultats.getInt("id"));
+                obj.setCode(resultats.getString("code"));
+                obj.setLibelle(resultats.getString("libelle"));
+                obj.setIdexamen(resultats.getInt("id_examen"));
+                // -- AJouter l'exament en reference -- //
+//                obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
+//                obj.setChoixreponse(new ChoixReponseDAO().Lister(obj.getId()));
                 
                 Liste.add(obj);
                 
@@ -157,6 +244,8 @@ public class QuestionDAO implements DAO<Question>{
                 obj.setCode(resultats.getString("code"));
                 obj.setLibelle(resultats.getString("libelle"));
                 obj.setIdexamen(resultats.getInt("id_examen"));
+                // -- AJouter l'exament en reference -- //
+                //obj.setExamen(new ExamenDAO().Objet(obj.getIdexamen()));
                 
                 Liste.add(obj);
                 
@@ -170,27 +259,5 @@ public class QuestionDAO implements DAO<Question>{
         }
         
         return (Liste.size() != 0) ? (Question)Liste.get(0) : null;
-    }
-
-    public ArrayList<Question> Lister(long id_examen) {
-        try {
-            ArrayList<Question> liste = new ArrayList<Question>();
-            for(Question val : Program.db.questions)
-            {
-                if (val.getIdexamen()== id_examen)
-                {
-                    liste.add(val);
-                }
-            }
-            return liste;
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-   
-    
+    }    
 }

@@ -9,7 +9,6 @@ import Model.BO.Etudiant;
 import Model.DAO.EtudiantDAO;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedProperty;
 
 
 public class EtudiantBean extends Bean {
@@ -17,7 +16,7 @@ public class EtudiantBean extends Bean {
     private Etudiant selectionDonnee;
     private ArrayList<Etudiant> listeDonnee;
     private String rechercher_champ, rechercher_valeur;
-    private int total;
+    private EtudiantDAO etudiantDAO;
     
     /**
      * Creates a new instance of EtudiantBean
@@ -56,14 +55,6 @@ public class EtudiantBean extends Bean {
     public void setRechercher_valeur(String rechercher_valeur) {
         this.rechercher_valeur = rechercher_valeur;
     }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
     
     @PostConstruct
     @Override
@@ -71,19 +62,20 @@ public class EtudiantBean extends Bean {
         
         try {
             // -- Initialiser les variables -- //
-            this.listeDonnee = new ArrayList<Etudiant>();
+            this.etudiantDAO = new EtudiantDAO();
+            this.listeDonnee = this.etudiantDAO.Lister();
             this.selectionDonnee = new Etudiant();
-            this.total = new EtudiantDAO().Lister().size();
         } catch (Exception ex) { }
         
     }
     
-    public void rechercher_methode() {
+    public void supprimerDonnee() {
         
         try {
+            // -- Suppression de l'objet -- //
+            this.etudiantDAO.Supprimer(this.selectionDonnee.getId());
             // -- Rechercher les enregistrements -- //
-            this.listeDonnee = (this.rechercher_champ.equals("*")) ? new EtudiantDAO().Lister() 
-                                                                   : new EtudiantDAO().Lister(this.rechercher_valeur, this.rechercher_champ);
+            this.listeDonnee = this.etudiantDAO.Lister();
             // -- Réinitialiser l'element à supprimer -- //
             this.selectionDonnee = new Etudiant();
         }
@@ -91,6 +83,43 @@ public class EtudiantBean extends Bean {
             // -- Affichier le message d'erreur -- //
             afficherMessage(ex.getMessage(), null);
         }
+        
+    }
+    
+    public void nouveauDonnee() {
+        
+        // -- Réinitialiser l'element à ajouter -- //
+        this.selectionDonnee = new Etudiant();
+        // -- Afficher ou fermer le modal -- //
+        afficherFermerModal(true);
+        
+    }
+    
+    public void enregistrer() {
+        
+        try {
+            // -- Si l'objet n'a pas de id -- //
+            if (this.selectionDonnee.getId() == 0)
+            {
+                // -- Ajouter de l'objet -- //
+                this.etudiantDAO.Ajouter(this.selectionDonnee); 
+            }
+            else
+            {
+                // -- Ajouter de l'objet -- //
+                this.etudiantDAO.Modifier(this.selectionDonnee);
+            }
+            // -- Rechercher les enregistrements -- //
+            this.listeDonnee = this.etudiantDAO.Lister();
+            // -- Réinitialiser l'element à supprimer -- //
+            this.selectionDonnee = new Etudiant();
+        }
+        catch(Exception ex){
+            // -- Affichier le message d'erreur -- //
+            afficherMessage(ex.getMessage(), null);
+        }
+        // -- Afficher ou fermer le modal -- //
+        afficherFermerModal(false);
         
     }
     
